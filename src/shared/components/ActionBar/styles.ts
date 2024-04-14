@@ -11,11 +11,11 @@ flex: 1;
 height: 50px;
 justify-content: center;
 align-items: center;
-background-color: #313131;
+background-color: ${ ({ theme }) => theme.COLORS.PRIMARY };
 `
 
 export const ActionBarButtonLabel = styled.Text`
-color: white;
+color: ${ ({ theme }) => theme.COLORS.TEXT_INVERSE };
 font-size: 16px;
 font-weight: 600;
 `
