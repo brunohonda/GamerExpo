@@ -17,5 +17,5 @@ font-family: ${ ({ theme }) => theme.FONTS.BOLD };
 
 export const EditButton = styled.TouchableOpacity`
 justify-content: center;
-align-items: center;;
+align-items: center;
 `

@@ -10,7 +10,6 @@ interface GamerListItemProps {
 }
 
 export function GamerListItem(props: GamerListItemProps) {
-  console.log('POPPER', props.gamer);
   return (
     <Container>
       <GamerContainer>
@@ -19,10 +18,7 @@ export function GamerListItem(props: GamerListItemProps) {
         <Text>Endereço: { props.gamer.address.street }, { props.gamer.address.addressNumber }</Text>
         <Text>Cidade: { props.gamer.address.city } - { props.gamer.address.stateCode }</Text>
       </GamerContainer>
-      <EditButton onPress={ () => {
-        console.log('CAXI', props.gamer);
-        props.navigation.navigate('Update', { gamer: JSON.stringify(props.gamer) });
-      } }>
+      <EditButton onPress={ () => props.navigation.navigate('Update', { gamer: JSON.stringify(props.gamer) }) }>
         <Image source={ editIcon }></Image>
       </EditButton>
     </Container>

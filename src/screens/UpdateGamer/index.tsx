@@ -11,8 +11,6 @@ interface UpdateGamerScreenProps {
 }
 
 export function UpdateGamerScreen(props: UpdateGamerScreenProps) {
-  console.log('BANANA', props);
-
   const actions: Action[] = [
     { key: 'Cancel', title: 'Cancelar', onPress: () => props.navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {} },

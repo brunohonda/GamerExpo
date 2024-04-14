@@ -1,9 +1,10 @@
 import React from "react";
 import { ActionBar } from "../../shared/components/ActionBar";
 import { GamerListItem } from "../../shared/components/GamerListItem";
-import { Input } from "../../shared/components/Input";
+import { InputWithButton } from "../../shared/components/InputWithButton";
 import { Action } from "../../shared/interfaces/Action";
 import { Gamer } from "../../shared/interfaces/Gamer";
+import searchIcon from './../../../assets/search.png';
 import { ListContainer, ListGamersContainer, SearchContainer } from "./styles";
 
 const gamers: Gamer[] = [
@@ -19,7 +20,7 @@ export function ListGamersScreen({ navigation }: any) {
   return (
     <ListGamersContainer>
       <SearchContainer>
-        <Input placeholder="Buscar Gamer"></Input>
+        <InputWithButton placeholder="Buscar Gamer" iconSource={ searchIcon }></InputWithButton>
       </SearchContainer>
       <ListContainer>
         { gamers.map(gamer => <GamerListItem key={ gamer.email } gamer={ gamer } navigation={ navigation }></GamerListItem>) }

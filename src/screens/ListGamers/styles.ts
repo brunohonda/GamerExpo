@@ -7,7 +7,7 @@ row-gap: ${ ({ theme }) => theme.SPACING.MEDIUM };
 `
 
 export const SearchContainer = styled.View`
-margin: ${ ({ theme }) => theme.SPACING.LARGE };
+margin: ${ ({ theme }) => theme.SPACING.MEDIUM };
 `
 
 export const ListContainer = styled.ScrollView.attrs({
