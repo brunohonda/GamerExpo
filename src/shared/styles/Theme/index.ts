@@ -15,4 +15,9 @@ export default {
     MEDIUM: "Roboto_500Medium",
     BOLD: "Roboto_700Bold",
   },
+  SPACING: {
+    SMALL: "4px",
+    MEDIUM: "8px",
+    LARGE: "16px",
+  },
 }
