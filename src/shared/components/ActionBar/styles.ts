@@ -3,16 +3,19 @@ import styled from "styled-components/native";
 export const ActionBarContainer = styled.View`
 width: 100%;
 flex-direction: row;
-justify-content: space-around;
-column-gap: 8px;
 `
 
-export const ActionBarButton = styled.Button`
-padding: 0px 20px;
-height: 90px;
-background-color: transparent;
-background-color: red;
-color: red;
-text-align: left;
-justify-content: start;
+export const ActionBarButton = styled.TouchableOpacity`
+display: flex;
+flex: 1;
+height: 50px;
+justify-content: center;
+align-items: center;
+background-color: #313131;
+`
+
+export const ActionBarButtonLabel = styled.Text`
+color: white;
+font-size: 16px;
+font-weight: 600;
 `
