@@ -1,19 +1,26 @@
+import { NavigationContainerRef, Route } from "@react-navigation/native";
 import React from "react";
 import { ActionBar } from "../../shared/components/ActionBar";
 import { GamerForm } from "../../shared/components/GamerForm";
 import { Action } from "../../shared/interfaces/Action";
 import { RegisterGamerContainer } from "./styles";
 
+interface UpdateGamerScreenProps {
+  navigation: NavigationContainerRef<{}>;
+  route: Route<'Update', { gamer: string }>;
+}
 
-export function RegisterGamerScreen({ navigation }: any) {
+export function UpdateGamerScreen(props: UpdateGamerScreenProps) {
+  console.log('BANANA', props);
+
   const actions: Action[] = [
-    { key: 'Cancel', title: 'Cancelar', onPress: () => navigation.goBack() },
+    { key: 'Cancel', title: 'Cancelar', onPress: () => props.navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {} },
   ];
   
   return (
     <RegisterGamerContainer>
-      <GamerForm></GamerForm>
+      <GamerForm gamer={ JSON.parse(props.route.params.gamer) }></GamerForm>
       <ActionBar actions={ actions }></ActionBar>
     </RegisterGamerContainer>
   )

@@ -1,9 +1,16 @@
+import { NavigationProp } from "@react-navigation/native";
 import { Image, Text } from "react-native";
 import { Gamer } from "../../interfaces/Gamer";
 import editIcon from './../../../../assets/edit-icon.png';
 import { Container, EditButton, GamerContainer } from "./styles";
 
-export function GamerListItem(props: { gamer: Gamer }) {
+interface GamerListItemProps {
+  navigation: NavigationProp<any>;
+  gamer: Gamer;
+}
+
+export function GamerListItem(props: GamerListItemProps) {
+  console.log('POPPER', props.gamer);
   return (
     <Container>
       <GamerContainer>
@@ -12,7 +19,10 @@ export function GamerListItem(props: { gamer: Gamer }) {
         <Text>Endereço: { props.gamer.address.street }, { props.gamer.address.addressNumber }</Text>
         <Text>Cidade: { props.gamer.address.city } - { props.gamer.address.stateCode }</Text>
       </GamerContainer>
-      <EditButton>
+      <EditButton onPress={ () => {
+        console.log('CAXI', props.gamer);
+        props.navigation.navigate('Update', { gamer: JSON.stringify(props.gamer) });
+      } }>
         <Image source={ editIcon }></Image>
       </EditButton>
     </Container>

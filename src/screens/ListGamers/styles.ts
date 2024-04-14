@@ -3,7 +3,11 @@ import styled from "styled-components/native";
 export const ListGamersContainer = styled.View`
 background-color: ${ ({ theme }) => theme.COLORS.BACKGROUND };
 flex: 1;
-row-gap: 8px;
+row-gap: ${ ({ theme }) => theme.SPACING.MEDIUM };
+`
+
+export const SearchContainer = styled.View`
+margin: ${ ({ theme }) => theme.SPACING.LARGE };
 `
 
 export const ListContainer = styled.ScrollView.attrs({
