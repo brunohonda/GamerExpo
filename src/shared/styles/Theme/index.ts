@@ -9,6 +9,7 @@ export default {
     DANGER: "",
     PRIMARY: "#313131",
     SECONDARY: "#BCBCBC",
+    WHITE: "#FFFFFF",
   },
   FONTS: {
     REGULAR: "Roboto_400Regular",
