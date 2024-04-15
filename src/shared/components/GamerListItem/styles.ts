@@ -12,7 +12,6 @@ padding: ${ ({ theme }) => theme.SPACING.MEDIUM };
 export const GamerContainer = styled.View`
 flex: 1;
 row-gap: ${ ({ theme }) => theme.SPACING.SMALL };
-font-family: ${ ({ theme }) => theme.FONTS.BOLD };
 `
 
 export const EditButton = styled.TouchableOpacity`

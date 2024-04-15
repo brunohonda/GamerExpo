@@ -8,9 +8,9 @@ interface InputWithButtonProps extends TextInputProps {
 
 export function InputWithButton({ ...props }: Readonly<InputWithButtonProps>) {
   return <InputContainer>
-    <Field {...props } />
+    <Field {...props}></Field>
     <Button onPress={ props.onClick }>
-      <Image source={ props.iconSource }></Image>
+      <Image source={ props.iconSource } />
     </Button>
   </InputContainer>
 }
