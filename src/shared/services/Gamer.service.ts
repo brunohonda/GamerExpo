@@ -23,11 +23,26 @@ export class GamerService {
   static async getList(): Promise<Gamer[]> {
     try {
       const items: Gamer[] = await storage.getAllDataForKey(this.storageKey);
-      console.log('BANANA', items);
 
       return items;
     } catch (error) {
       return [];
     }
+  }
+
+  static async update(data: Gamer): Promise<void> {
+    const ids: string[] = await storage.getIdsForKey(this.storageKey);
+    const alreadyExists = ids.includes(data.email);
+
+    if (!alreadyExists) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    await storage.save({
+      key: this.storageKey,
+      id: data.email,
+      expires: null,
+      data,
+    });
   }
 }

@@ -52,7 +52,10 @@ export function GamerForm(props: GamerFormProps) {
             .min(3, 'Informe no mínimo 3 caracteres'),
         }),
       })
-    )
+    ),
+    defaultValues: {
+      ...props.gamer,
+    }
   });
   const handlerSearchAddress = async () => {
     try {
