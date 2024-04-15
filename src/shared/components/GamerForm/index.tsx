@@ -29,11 +29,17 @@ export function GamerForm(props: { gamer?: Gamer }) {
     <Container>
       <Input placeholder="Primeiro nome">{ props.gamer?.firstName }</Input>
       <Input placeholder="Último nome">{ props.gamer?.lastName }</Input>
-      <Input placeholder="E-mail">{ props.gamer?.email }</Input>
-      <InputWithButton placeholder="CEP" iconSource={ searchIcon } onChangeText={(text) => setPostalCode(text)} onClick={ handlerSearchAddress }>{ postalCode }</InputWithButton>
+      <Input placeholder="E-mail" keyboardType="email-address">{ props.gamer?.email }</Input>
+      <InputWithButton placeholder="CEP"
+        keyboardType="numeric"
+        maxLength={ 7 }
+        iconSource={ searchIcon }
+        onChangeText={(text) => setPostalCode(text)}
+        onClick={ handlerSearchAddress }
+      >{ postalCode }</InputWithButton>
       { loadingAddress && <ActivityIndicator></ActivityIndicator> }
       <Input placeholder="Rua">{ address?.street }</Input>
-      <Input placeholder="Número">{ address?.addressNumber?.toString() }</Input>
+      <Input placeholder="Número" keyboardType="numeric">{ address?.addressNumber?.toString() }</Input>
       <Input placeholder="Bairro">{ address?.neighborhood }</Input>
       <Input placeholder="Cidade">{ address?.city }</Input>
       <Input placeholder="UF">{ address?.stateCode }</Input>
