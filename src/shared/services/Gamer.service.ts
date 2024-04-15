@@ -24,7 +24,7 @@ export class GamerService {
     try {
       const items: Gamer[] = await storage.getAllDataForKey(this.storageKey);
 
-      return items;
+      return items.reverse();
     } catch (error) {
       return [];
     }
@@ -37,6 +37,11 @@ export class GamerService {
     if (!alreadyExists) {
       throw new Error('Usuário não encontrado');
     }
+
+    await storage.remove({
+      key: this.storageKey,
+      id: data.email,
+    })
 
     await storage.save({
       key: this.storageKey,
