@@ -14,7 +14,7 @@ interface InputWithButtonProps extends TextInputProps {
 export function InputWithButton({ ...props }: Readonly<InputWithButtonProps>) {
   function render(onChange: any) {
     return <InputContainer>
-    <Field {...props} onChange={ onChange }></Field>
+    <Field {...props} onChangeText={ onChange }></Field>
     <Button onPress={ props.onClick }>
       <Image source={ props.iconSource } />
     </Button>

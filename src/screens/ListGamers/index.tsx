@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Text } from "react-native";
 import * as yup from "yup";
 import { ActionBar } from "../../shared/components/ActionBar";
 import { GamerListItem } from "../../shared/components/GamerListItem";
@@ -8,12 +9,9 @@ import { InputWithButton } from "../../shared/components/InputWithButton";
 import { Action } from "../../shared/interfaces/Action";
 import { Gamer } from "../../shared/interfaces/Gamer";
 import searchIcon from './../../../assets/search.png';
+import { ListGamersController } from "./controller";
 import { ListContainer, ListGamersContainer, SearchContainer } from "./styles";
 
-const gamers: Gamer[] = [
-  { firstName: 'A', lastName: 'B', email: 'a@b.com', address: { postalCode: '', street: 'Street A', addressNumber: '', city: 'City', stateCode: 'MG', neighborhood: 'neighborhood' }},
-  { firstName: 'B', lastName: 'C', email: 'b@c.com', address: { postalCode: '', street: 'Street B', addressNumber: '', city: 'City', stateCode: 'MG', neighborhood: 'neighborhood' }},
-];
 
 export function ListGamersScreen({ navigation }: any) {
   const actions: Action[] = [
@@ -26,6 +24,17 @@ export function ListGamersScreen({ navigation }: any) {
       })
     )
   });
+  const [ gamers, setGamers ] = useState<Gamer[]>([]);
+
+  useEffect(
+    () => {
+      ListGamersController.getList()
+        .then(data => {
+          setGamers(data);
+        });
+    },
+    []
+  );
 
   return (
     <ListGamersContainer>
@@ -39,7 +48,8 @@ export function ListGamersScreen({ navigation }: any) {
         ></InputWithButton>
       </SearchContainer>
       <ListContainer>
-        { gamers.map(gamer => <GamerListItem key={ gamer.email } gamer={ gamer } navigation={ navigation }></GamerListItem>) }
+        { gamers.length === 0 && <Text>Nenhum Gamer cadastrado ainda</Text> }
+        { gamers.map((gamer, index) => <GamerListItem key={ index } gamer={ gamer } navigation={ navigation }></GamerListItem>) }
       </ListContainer>
       <ActionBar actions={ actions }></ActionBar>
     </ListGamersContainer>

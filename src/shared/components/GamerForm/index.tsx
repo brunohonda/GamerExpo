@@ -11,11 +11,16 @@ import searchIcon from './../../../../assets/search.png';
 import { GamerFormController } from "./controller";
 import { Container } from "./styles";
 
-export function GamerForm(props: { gamer?: Gamer }) {
+interface GamerFormProps {
+  gamer?: Gamer;
+  onChange?: (gamer: Gamer) => void;
+}
+
+export function GamerForm(props: GamerFormProps) {
   const [ postalCode, setPostalCode ] = useState<string>(props.gamer?.address.postalCode ?? '');
   const [ address, setAddress ] = useState<Address|null>(props.gamer?.address ? props.gamer?.address : null);
   const [ loadingAddress, setLoadingAddress ] = useState<boolean>(false);
-  const { control, formState } = useForm<Gamer>({
+  const { control, formState, getValues } = useForm<Gamer>({
     resolver: yupResolver(
       yup.object({
         firstName: yup.string()
@@ -60,12 +65,16 @@ export function GamerForm(props: { gamer?: Gamer }) {
       setLoadingAddress(false);
     }
   };
+
+  function handlerChange() {
+    setTimeout(() => (props.onChange ?? (() => {}))(getValues()), 1);
+  }
   
   return (
     <Container>
-      <Input placeholder="Primeiro nome" control={ control } name="firstName" formState={ formState }>{ props.gamer?.firstName }</Input>
-      <Input placeholder="Último nome" control={ control } name="lastName" formState={ formState }>{ props.gamer?.lastName }</Input>
-      <Input placeholder="E-mail" keyboardType="email-address" control={ control } name="email" formState={ formState }>{ props.gamer?.email }</Input>
+      <Input placeholder="Primeiro nome" control={ control } name="firstName" formState={ formState } onChange={ handlerChange }>{ props.gamer?.firstName }</Input>
+      <Input placeholder="Último nome" control={ control } name="lastName" formState={ formState } onChange={ handlerChange }>{ props.gamer?.lastName }</Input>
+      <Input placeholder="E-mail" keyboardType="email-address" control={ control } name="email" formState={ formState } onChange={ handlerChange }>{ props.gamer?.email }</Input>
       <InputWithButton placeholder="CEP"
         keyboardType="numeric"
         maxLength={ 8 }
@@ -75,13 +84,14 @@ export function GamerForm(props: { gamer?: Gamer }) {
         formState={ formState }
         onChangeText={(text) => setPostalCode(text)}
         onClick={ handlerSearchAddress }
+        onChange={ handlerChange }
       >{ postalCode }</InputWithButton>
       { loadingAddress && <ActivityIndicator></ActivityIndicator> }
-      <Input placeholder="Rua" control={ control } name="address.street" formState={ formState }>{ address?.street }</Input>
-      <Input placeholder="Número" keyboardType="numeric" control={ control } name="address.addressNumber" formState={ formState }>{ address?.addressNumber }</Input>
-      <Input placeholder="Bairro" control={ control } name="address.neighborhood" formState={ formState }>{ address?.neighborhood }</Input>
-      <Input placeholder="Cidade" control={ control } name="address.city" formState={ formState }>{ address?.city }</Input>
-      <Input placeholder="UF" control={ control } name="address.stateCode" formState={ formState }>{ address?.stateCode }</Input>
+      <Input placeholder="Rua" control={ control } name="address.street" formState={ formState } onChange={ handlerChange }>{ address?.street }</Input>
+      <Input placeholder="Número" keyboardType="numeric" control={ control } name="address.addressNumber" formState={ formState } onChange={ handlerChange }>{ address?.addressNumber }</Input>
+      <Input placeholder="Bairro" control={ control } name="address.neighborhood" formState={ formState } onChange={ handlerChange }>{ address?.neighborhood }</Input>
+      <Input placeholder="Cidade" control={ control } name="address.city" formState={ formState } onChange={ handlerChange }>{ address?.city }</Input>
+      <Input placeholder="UF" control={ control } name="address.stateCode" formState={ formState } onChange={ handlerChange }>{ address?.stateCode }</Input>
     </Container>
   )
 }

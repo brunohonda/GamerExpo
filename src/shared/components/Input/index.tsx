@@ -12,7 +12,7 @@ export interface InputProps extends TextInputProps {
 export function Input({ ...props }: Readonly<InputProps>) {
   function render(onChange: any) {
     return <InputContainer>
-        <Field {...props} onChange={ onChange } />
+        <Field {...props} onChangeText={ onChange } />
         { props.formState.errors[props.name] && <ErrorMessage>{ props.formState.errors[props.name]?.message as string }</ErrorMessage> }
       </InputContainer>
   }
