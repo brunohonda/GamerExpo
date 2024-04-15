@@ -32,7 +32,7 @@ export function GamerForm(props: { gamer?: Gamer }) {
       <Input placeholder="E-mail" keyboardType="email-address">{ props.gamer?.email }</Input>
       <InputWithButton placeholder="CEP"
         keyboardType="numeric"
-        maxLength={ 7 }
+        maxLength={ 8 }
         iconSource={ searchIcon }
         onChangeText={(text) => setPostalCode(text)}
         onClick={ handlerSearchAddress }
