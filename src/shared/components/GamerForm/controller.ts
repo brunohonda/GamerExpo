@@ -9,7 +9,7 @@ export class GamerFormController {
         return {
           postalCode: data.cep,
           street: data.logradouro,
-          addressNumber: null,
+          addressNumber: '',
           neighborhood: data.bairro,
           city: data.localidade,
           stateCode: data.uf,
