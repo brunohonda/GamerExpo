@@ -12,7 +12,9 @@ export function RegisterGamerScreen({ navigation }: any) {
     { key: 'Cancel', title: 'Cancelar', onPress: () => navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {
       if(gamer) {
-        RegisterGamerController.save(gamer);
+        RegisterGamerController.save(gamer).then(
+          () => navigation.goBack()
+        );
       }
     }},
   ];

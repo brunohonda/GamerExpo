@@ -17,7 +17,9 @@ export function UpdateGamerScreen(props: UpdateGamerScreenProps) {
     { key: 'Cancel', title: 'Cancelar', onPress: () => props.navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {
       if(gamer) {
-        UpdateGamerController.save(gamer);
+        UpdateGamerController.save(gamer).then(
+          () => props.navigation.goBack()
+        );
       }
     } },
   ];

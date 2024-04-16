@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Text } from "react-native";
 import * as yup from "yup";
@@ -26,15 +27,10 @@ export function ListGamersScreen({ navigation }: any) {
   });
   const [ gamers, setGamers ] = useState<Gamer[]>([]);
 
-  useEffect(
-    () => {
-      ListGamersController.getList()
-        .then(data => {
-          setGamers(data);
-        });
-    },
-    []
-  );
+  useFocusEffect(() => {
+    ListGamersController.getList()
+      .then(data => setGamers(data))
+  });
 
   return (
     <ListGamersContainer>
