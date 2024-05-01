@@ -4,23 +4,23 @@ import { useForm } from "react-hook-form";
 import { ActivityIndicator } from "react-native";
 import * as yup from "yup";
 import { Address } from "../../interfaces/Address";
-import { Gamer } from "../../interfaces/Gamer";
+import { Market } from "../../interfaces/Market";
 import { Input } from "../Input";
 import { InputWithButton } from "../InputWithButton";
 import searchIcon from './../../../../assets/search.png';
-import { GamerFormController } from "./controller";
+import { MarketFormController } from "./controller";
 import { Container } from "./styles";
 
-interface GamerFormProps {
-  gamer?: Gamer;
-  onChange?: (gamer: Gamer) => void;
+interface MarketFormProps {
+  market?: Market;
+  onChange?: (market: Market) => void;
 }
 
-export function GamerForm(props: GamerFormProps) {
-  const [ postalCode, setPostalCode ] = useState<string>(props.gamer?.address.postalCode ?? '');
-  const [ address, setAddress ] = useState<Address|null>(props.gamer?.address ? props.gamer?.address : null);
+export function MarketForm(props: MarketFormProps) {
+  const [ postalCode, setPostalCode ] = useState<string>(props.market?.address.postalCode ?? '');
+  const [ address, setAddress ] = useState<Address|null>(props.market?.address ? props.market?.address : null);
   const [ loadingAddress, setLoadingAddress ] = useState<boolean>(false);
-  const { control, formState, getValues } = useForm<Gamer>({
+  const { control, formState, getValues } = useForm<Market>({
     resolver: yupResolver(
       yup.object({
         firstName: yup.string()
@@ -54,13 +54,13 @@ export function GamerForm(props: GamerFormProps) {
       })
     ),
     defaultValues: {
-      ...props.gamer,
+      ...props.market,
     }
   });
   const handlerSearchAddress = async () => {
     try {
       setLoadingAddress(true)
-      const data = await GamerFormController.fetchAddress(postalCode);
+      const data = await MarketFormController.fetchAddress(postalCode);
       setAddress(data);
     } catch (error) {
       console.error('Error on search address by postal code', error);
@@ -75,9 +75,9 @@ export function GamerForm(props: GamerFormProps) {
   
   return (
     <Container>
-      <Input placeholder="Primeiro nome" control={ control } name="firstName" formState={ formState } onChange={ handlerChange }>{ props.gamer?.firstName }</Input>
-      <Input placeholder="Último nome" control={ control } name="lastName" formState={ formState } onChange={ handlerChange }>{ props.gamer?.lastName }</Input>
-      <Input placeholder="E-mail" keyboardType="email-address" control={ control } name="email" formState={ formState } onChange={ handlerChange }>{ props.gamer?.email }</Input>
+      <Input placeholder="Primeiro nome" control={ control } name="firstName" formState={ formState } onChange={ handlerChange }>{ props.market?.firstName }</Input>
+      <Input placeholder="Último nome" control={ control } name="lastName" formState={ formState } onChange={ handlerChange }>{ props.market?.lastName }</Input>
+      <Input placeholder="E-mail" keyboardType="email-address" control={ control } name="email" formState={ formState } onChange={ handlerChange }>{ props.market?.email }</Input>
       <InputWithButton placeholder="CEP"
         keyboardType="numeric"
         maxLength={ 8 }

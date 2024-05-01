@@ -9,7 +9,7 @@ border-radius: ${ ({ theme }) => theme.SPACING.MEDIUM };
 padding: ${ ({ theme }) => theme.SPACING.MEDIUM };
 `
 
-export const GamerContainer = styled.View`
+export const MarketContainer = styled.View`
 flex: 1;
 row-gap: ${ ({ theme }) => theme.SPACING.SMALL };
 `

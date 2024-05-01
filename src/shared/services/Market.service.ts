@@ -1,10 +1,10 @@
-import { Gamer } from "../interfaces/Gamer";
+import { Market } from "../interfaces/Market";
 import { storage } from "./Storage";
 
-export class GamerService {
-  private static storageKey = 'Gamer';
+export class MarketService {
+  private static storageKey = 'Market';
 
-  static async create(data: Gamer): Promise<void> {
+  static async create(data: Market): Promise<void> {
     const ids: string[] = await storage.getIdsForKey(this.storageKey);
     const alreadyExists = ids.includes(data.email);
 
@@ -20,9 +20,9 @@ export class GamerService {
     });
   }
 
-  static async getList(): Promise<Gamer[]> {
+  static async getList(): Promise<Market[]> {
     try {
-      const items: Gamer[] = await storage.getAllDataForKey(this.storageKey);
+      const items: Market[] = await storage.getAllDataForKey(this.storageKey);
 
       return items.reverse();
     } catch (error) {
@@ -30,7 +30,7 @@ export class GamerService {
     }
   }
 
-  static async update(data: Gamer): Promise<void> {
+  static async update(data: Market): Promise<void> {
     const ids: string[] = await storage.getIdsForKey(this.storageKey);
     const alreadyExists = ids.includes(data.email);
 
