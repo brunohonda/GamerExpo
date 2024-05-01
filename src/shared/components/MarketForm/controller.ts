@@ -7,7 +7,7 @@ export class MarketFormController {
       .then(async (response: Response) => {
         const data = await response.json() as AddressDto;
         return {
-          postalCode: data.cep,
+          postalCode: data.cep.replace(/[^\d]/, ''),
           street: data.logradouro,
           addressNumber: '',
           neighborhood: data.bairro,

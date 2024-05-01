@@ -17,7 +17,6 @@ interface MarketFormProps {
 }
 
 export function MarketForm(props: MarketFormProps) {
-  const [ postalCode, setPostalCode ] = useState<string>(props.market?.address.postalCode ?? '');
   const [ address, setAddress ] = useState<Address|null>(props.market?.address ? props.market?.address : null);
   const [ loadingAddress, setLoadingAddress ] = useState<boolean>(false);
   const { control, formState, getValues } = useForm<Market>({
@@ -57,7 +56,8 @@ export function MarketForm(props: MarketFormProps) {
   });
   const handlerSearchAddress = async () => {
     try {
-      setLoadingAddress(true)
+      setLoadingAddress(true);
+      const postalCode = getValues().address.postalCode;
       const data = await MarketFormController.fetchAddress(postalCode);
       setAddress(data);
     } catch (error) {
@@ -80,12 +80,11 @@ export function MarketForm(props: MarketFormProps) {
         maxLength={ 8 }
         iconSource={ searchIcon }
         control={ control }
-        name="postalCode"
+        name="address.postalCode"
         formState={ formState }
-        onChangeText={(text) => setPostalCode(text)}
         onClick={ handlerSearchAddress }
         onChange={ handlerChange }
-      >{ postalCode }</InputWithButton>
+      >{ address?.postalCode }</InputWithButton>
       { loadingAddress && <ActivityIndicator></ActivityIndicator> }
       <Input placeholder="Rua" control={ control } name="address.street" formState={ formState } onChange={ handlerChange }>{ address?.street }</Input>
       <Input placeholder="Número" keyboardType="numeric" control={ control } name="address.addressNumber" formState={ formState } onChange={ handlerChange }>{ address?.addressNumber }</Input>
