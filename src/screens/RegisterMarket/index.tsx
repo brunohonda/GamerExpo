@@ -8,7 +8,8 @@ import { RegisterMarketContainer } from "./styles";
 
 
 export function RegisterMarketScreen({ navigation }: any) {
-  const [ actions, setActions ] = useState<Action[]>([
+  const [ market, setMarket ] = useState<Market>();
+  let actions: Action[] = [
     { key: 'Cancel', title: 'Cancelar', onPress: () => navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {
       if(market) {
@@ -17,15 +18,14 @@ export function RegisterMarketScreen({ navigation }: any) {
         );
       }
     }},
-  ]);
-  const [ market, setMarket ] = useState<Market>();
+  ];
 
   function setActionDisabledState(key: string, disabled: boolean): void {
-    setActions(
-      actions.map(action => ({
+    actions = actions.map(
+      action => ({
         ...action,
         disabled: action.key === key ? disabled : action.disabled,
-      }))
+      })
     );
   }
   
