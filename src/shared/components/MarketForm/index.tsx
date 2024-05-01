@@ -19,7 +19,7 @@ interface MarketFormProps {
 export function MarketForm(props: MarketFormProps) {
   const [ address, setAddress ] = useState<Address|null>(props.market?.address ? props.market?.address : null);
   const [ loadingAddress, setLoadingAddress ] = useState<boolean>(false);
-  const { control, formState, getValues } = useForm<Market>({
+  const { control, formState, getValues, setValue, trigger } = useForm<Market>({
     mode: "all",
     resolver: yupResolver(
       yup.object({
@@ -28,10 +28,9 @@ export function MarketForm(props: MarketFormProps) {
           .min(3, 'Informe no mínimo 3 caracteres'),
         phone: yup.string()
           .required('Campo obrigatório')
-          .matches(/\d{10,11}^$/, 'Informe um telefone válido'),
+          .matches(/^\d{10,11}$/, 'Informe um telefone válido'),
         address: yup.object({
           postalCode: yup.string()
-            .required('Campo obrigatório')
             .length(8, 'Informe 8 digítos')
             .matches(/^\d{8}$/, 'Informe somente números'),
           street: yup.string()
@@ -46,7 +45,7 @@ export function MarketForm(props: MarketFormProps) {
             .min(3, 'Informe no mínimo 3 caracteres'),
           stateCode: yup.string()
             .required('Campo obrigatório')
-            .min(3, 'Informe no mínimo 3 caracteres'),
+            .length(2, 'Informe um estado válido'),
         }),
       })
     ),
@@ -56,10 +55,13 @@ export function MarketForm(props: MarketFormProps) {
   });
   const handlerSearchAddress = async () => {
     try {
-      setLoadingAddress(true);
       const postalCode = getValues().address.postalCode;
-      const data = await MarketFormController.fetchAddress(postalCode);
-      setAddress(data);
+      if (postalCode) {
+        setLoadingAddress(true);
+        const data = await MarketFormController.fetchAddress(postalCode);
+        setValue('address', data);
+        setAddress(data);
+      }
     } catch (error) {
       console.error('Error on search address by postal code', error);
     } finally {
@@ -68,6 +70,7 @@ export function MarketForm(props: MarketFormProps) {
   };
 
   function handlerChange() {
+    trigger();
     setTimeout(() => (props.onChange ?? (() => {}))(getValues()), 1);
   }
   
