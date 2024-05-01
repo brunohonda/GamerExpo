@@ -1,5 +1,5 @@
 import { Control, Controller, FormState } from "react-hook-form";
-import { TextInputProps } from "react-native";
+import { TextInputProps, View } from "react-native";
 import { ErrorMessage } from "../ErrorMessage";
 import { Input as Field, InputContainer } from "./styles";
 
@@ -11,10 +11,12 @@ export interface InputProps extends TextInputProps {
 
 export function Input({ ...props }: Readonly<InputProps>) {
   function render(onChange: any) {
-    return <InputContainer>
+    return <View>
+      <InputContainer>
         <Field {...props} onChangeText={ onChange } />
-        { props.formState.errors[props.name] && <ErrorMessage>{ props.formState.errors[props.name]?.message as string }</ErrorMessage> }
       </InputContainer>
+      { props.formState.errors[props.name] && <ErrorMessage>{ props.formState.errors[props.name]?.message as string }</ErrorMessage> }
+    </View>
   }
 
   return <Controller

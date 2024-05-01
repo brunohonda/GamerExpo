@@ -21,6 +21,7 @@ export function MarketForm(props: MarketFormProps) {
   const [ address, setAddress ] = useState<Address|null>(props.market?.address ? props.market?.address : null);
   const [ loadingAddress, setLoadingAddress ] = useState<boolean>(false);
   const { control, formState, getValues } = useForm<Market>({
+    mode: "all",
     resolver: yupResolver(
       yup.object({
         name: yup.string()
@@ -28,7 +29,7 @@ export function MarketForm(props: MarketFormProps) {
           .min(3, 'Informe no mínimo 3 caracteres'),
         phone: yup.string()
           .required('Campo obrigatório')
-          .email('Informe um telefone válido'),
+          .matches(/\d{10,11}^$/, 'Informe um telefone válido'),
         address: yup.object({
           postalCode: yup.string()
             .required('Campo obrigatório')
