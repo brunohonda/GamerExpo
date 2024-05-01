@@ -6,15 +6,15 @@ export class MarketService {
 
   static async create(data: Market): Promise<void> {
     const ids: string[] = await storage.getIdsForKey(this.storageKey);
-    const alreadyExists = ids.includes(data.email);
+    const alreadyExists = ids.includes(data.phone);
 
     if (alreadyExists) {
-      throw new Error('Usuário já existe');
+      throw new Error('Mercado já cadastrado');
     }
 
     await storage.save({
       key: this.storageKey,
-      id: data.email,
+      id: data.phone,
       expires: null,
       data,
     });
@@ -32,7 +32,7 @@ export class MarketService {
 
   static async update(data: Market): Promise<void> {
     const ids: string[] = await storage.getIdsForKey(this.storageKey);
-    const alreadyExists = ids.includes(data.email);
+    const alreadyExists = ids.includes(data.phone);
 
     if (!alreadyExists) {
       throw new Error('Usuário não encontrado');
@@ -40,12 +40,12 @@ export class MarketService {
 
     await storage.remove({
       key: this.storageKey,
-      id: data.email,
+      id: data.phone,
     })
 
     await storage.save({
       key: this.storageKey,
-      id: data.email,
+      id: data.phone,
       expires: null,
       data,
     });

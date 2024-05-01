@@ -23,15 +23,12 @@ export function MarketForm(props: MarketFormProps) {
   const { control, formState, getValues } = useForm<Market>({
     resolver: yupResolver(
       yup.object({
-        firstName: yup.string()
+        name: yup.string()
           .required('Campo obrigatório')
           .min(3, 'Informe no mínimo 3 caracteres'),
-        lastName: yup.string()
+        phone: yup.string()
           .required('Campo obrigatório')
-          .min(3, 'Informe no mínimo 3 caracteres'),
-        email: yup.string()
-          .required('Campo obrigatório')
-          .email('Informe um e-mail válido'),
+          .email('Informe um telefone válido'),
         address: yup.object({
           postalCode: yup.string()
             .required('Campo obrigatório')
@@ -75,9 +72,8 @@ export function MarketForm(props: MarketFormProps) {
   
   return (
     <Container>
-      <Input placeholder="Primeiro nome" control={ control } name="firstName" formState={ formState } onChange={ handlerChange }>{ props.market?.firstName }</Input>
-      <Input placeholder="Último nome" control={ control } name="lastName" formState={ formState } onChange={ handlerChange }>{ props.market?.lastName }</Input>
-      <Input placeholder="E-mail" keyboardType="email-address" control={ control } name="email" formState={ formState } onChange={ handlerChange }>{ props.market?.email }</Input>
+      <Input placeholder="Nome" control={ control } name="name" formState={ formState } onChange={ handlerChange }>{ props.market?.name }</Input>
+      <Input placeholder="Telefone" keyboardType="phone-pad" control={ control } name="phone" formState={ formState } onChange={ handlerChange }>{ props.market?.phone }</Input>
       <InputWithButton placeholder="CEP"
         keyboardType="numeric"
         maxLength={ 8 }

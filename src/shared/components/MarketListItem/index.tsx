@@ -13,9 +13,9 @@ export function MarketListItem(props: MarketListItemProps) {
   return (
     <Container>
       <MarketContainer>
-        <Text>Nome: { props.market.firstName } { props.market.lastName }</Text>
-        <Text>E-mail: { props.market.email }</Text>
-        <Text>Endereço: { props.market.address.street }, { props.market.address.addressNumber }</Text>
+        <Text>Nome: { props.market.name }</Text>
+        <Text>Telefone: { props.market.phone }</Text>
+        <Text>Endereço: { props.market.address.street }, { props.market.address.addressNumber }. { props.market.address.neighborhood }</Text>
         <Text>Cidade: { props.market.address.city } - { props.market.address.stateCode }</Text>
       </MarketContainer>
       <EditButton onPress={ () => props.navigation.navigate('Update', { market: JSON.stringify(props.market) }) }>
