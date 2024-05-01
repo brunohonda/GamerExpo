@@ -16,5 +16,5 @@ export const ListContainer = styled.ScrollView.attrs({
   }
 })`
 flex: 1;
-padding: 0 ${ ({ theme }) => theme.SPACING.MEDIUM };
+padding: ${ ({ theme }) => theme.SPACING.MEDIUM };
 `;
