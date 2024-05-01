@@ -6,7 +6,7 @@ export function ActionBar(props: { actions: Action[] }) {
     <ActionBarContainer>
       {
         props.actions.map(action => (
-          <ActionBarButton key={ action.key } onPress={ action.onPress }>
+          <ActionBarButton key={ action.key } onPress={ action.onPress } disabled={ action.disabled }>
             <ActionBarButtonLabel>{ action.title }</ActionBarButtonLabel>
           </ActionBarButton>
         ))

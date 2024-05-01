@@ -5,13 +5,13 @@ width: 100%;
 flex-direction: row;
 `
 
-export const ActionBarButton = styled.TouchableOpacity`
+export const ActionBarButton = styled.TouchableOpacity<{ disabled?: boolean; }>`
 display: flex;
 flex: 1;
 height: 50px;
 justify-content: center;
 align-items: center;
-background-color: ${ ({ theme }) => theme.COLORS.PRIMARY };
+background-color: ${ (props) => props.disabled ? props.theme.COLORS.SECONDARY : props.theme.COLORS.PRIMARY };
 `
 
 export const ActionBarButtonLabel = styled.Text`

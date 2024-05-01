@@ -13,7 +13,7 @@ interface UpdateMarketScreenProps {
 }
 
 export function UpdateMarketScreen(props: UpdateMarketScreenProps) {
-  const actions: Action[] = [
+  const [ actions, setActions ] = useState<Action[]>([
     { key: 'Cancel', title: 'Cancelar', onPress: () => props.navigation.goBack() },
     { key: 'Save', title: 'Salvar', onPress: () => {
       if(market) {
@@ -22,12 +22,21 @@ export function UpdateMarketScreen(props: UpdateMarketScreenProps) {
         );
       }
     } },
-  ];
+  ]);
   const [ market, setMarket ] = useState<Market>(JSON.parse(props.route.params.market));
+
+  function setActionDisabledState(key: string, disabled: boolean): void {
+    setActions(
+      actions.map(action => ({
+        ...action,
+        disabled: action.key === key ? disabled : action.disabled,
+      }))
+    );
+  }
   
   return (
     <UpdateMarketContainer>
-      <MarketForm market={ market } onChange={ (market)=> setMarket(market) }></MarketForm>
+      <MarketForm market={ market } onChange={ (market)=> setMarket(market) } onValidityChange={ (isValid) => setActionDisabledState('Save', !isValid) }></MarketForm>
       <ActionBar actions={ actions }></ActionBar>
     </UpdateMarketContainer>
   )

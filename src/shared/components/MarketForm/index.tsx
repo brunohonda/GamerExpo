@@ -14,6 +14,7 @@ import { Container } from "./styles";
 interface MarketFormProps {
   market?: Market;
   onChange?: (market: Market) => void;
+  onValidityChange?: (isValid: boolean) => void;
 }
 
 export function MarketForm(props: MarketFormProps) {
@@ -72,6 +73,7 @@ export function MarketForm(props: MarketFormProps) {
   function handlerChange() {
     trigger();
     setTimeout(() => (props.onChange ?? (() => {}))(getValues()), 1);
+    setTimeout(() => (props.onValidityChange ?? (() => {}))(formState.isValid), 1);
   }
   
   return (
